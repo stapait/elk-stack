@@ -1,0 +1,12 @@
+FROM docker.elastic.co/logstash/logstash:6.0.0
+
+WORKDIR /usr/share/logstash/
+
+RUN rm -f pipeline/*
+COPY logstash.conf config
+
+ENV xpack.monitoring.enabled=false
+
+EXPOSE 41234
+
+CMD ["/usr/share/logstash/bin/logstash", "-f", "/usr/share/logstash/config/logstash.conf"]
