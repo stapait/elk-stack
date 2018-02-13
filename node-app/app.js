@@ -27,6 +27,15 @@ const configureRoutes = async () => {
     logger.info(JSON.stringify({data1:Math.random() * 10, data2:Math.random() * 100, data3:Math.random()}))
     res.status(204).end();
   });
+
+  app.get('/error', (req, res) => {
+    try {
+      throw new Error('This is a very serious error');
+    } catch (err) {
+      logger.error('Some error', err.stack);
+    }
+    res.status(500).end();
+  });
 }
 
 const startApp = async () => {
